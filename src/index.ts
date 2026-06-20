@@ -5,6 +5,6 @@ import jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());
 
-app.post("/auth", authRoute);
+app.use("/auth", authRoute);
 
 export default app;
