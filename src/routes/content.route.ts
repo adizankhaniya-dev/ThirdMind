@@ -12,12 +12,31 @@ route.post("/content", userMiddleware, async (req, res) => {
     await contentModel.create({
       title,
       link,
-      userId: req.userId!, 
+      userId: req.userId!,
       tags: [],
     });
     res.status(201).json({ message: "Content created successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to create content" });
+  }
+});
+
+route.get("/content", userMiddleware, async (req, res) => {
+  const userId = req.userId;
+  if (!req.userId) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  try {
+    
+    const content = await contentModel.find({
+        userId: userId!,
+    })
+
+    res.json({ content });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
