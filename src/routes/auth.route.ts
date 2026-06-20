@@ -1,8 +1,10 @@
 import express from "express";
-import z, { date } from "zod";
+import z from "zod";
 import userModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const route = express.Router();
 
@@ -61,7 +63,6 @@ route.post("/signup", async (req, res) => {
     user: {
       id: user._id,
       username: user.username,
-      password: user.password,
     },
   });
 });
